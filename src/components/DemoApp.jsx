@@ -1,50 +1,61 @@
+// ss kori
 import { useState, useEffect } from "react";
 import 'rsuite/Loader/styles/index.css';
 import { Loader } from 'rsuite';
 import { linkAccount, checkConnectionStatus } from "../utils/composio_utils";
 
-const DemoApp = ({ logo, title, description, user, appName, action }) => {
+const DemoApp = ({ logo, title, description, user, appName, action, setOpen }) => {
     const [isConnected, setIsConnected] = useState(false);
     const [connecting, setConnecting] = useState(false);
     const [actionExecuting, setActionExecuting] = useState(false);
 
     useEffect(() => {
-        const checkConnectionStatusHelper = async () => {
+        if (user) {
+            const checkConnectionStatusHelper = async () => {
+                try {
+                    setConnecting(true);
+                    const authenticated = await checkConnectionStatus(appName, setIsConnected, user.email.split("@")[0]);
+                    if (authenticated === "yes") {
+                        setIsConnected(true);
+                    }
+                } catch (error) {
+                    alert(error.message);
+                } finally {
+                    setConnecting(false);
+                }
+            }
+            checkConnectionStatusHelper();
+        }
+    }, [user]);
+
+    const handleConnect = async () => {
+        if (user) {
             try {
                 setConnecting(true);
-                const authenticated = await checkConnectionStatus(appName, setIsConnected, user.email.split("@")[0]);
-                if (authenticated === "yes") {
-                    setIsConnected(true);
-                }
+                let url = await linkAccount(user.email.split("@")[0], appName);
+                window.open(url, "_blank");
             } catch (error) {
                 alert(error.message);
             } finally {
                 setConnecting(false);
             }
-        }
-        checkConnectionStatusHelper();
-    }, []);
-
-    const handleConnect = async () => {
-        try {
-            setConnecting(true);
-            let url = await linkAccount(user.email.split("@")[0], appName);
-            window.open(url, "_blank");
-        } catch (error) {
-            alert(error.message);
-        } finally {
-            setConnecting(false);
+        } else {
+            setOpen(true);
         }
     };
 
     const handleAction = async () => {
-        try {
-            setActionExecuting(true);
-            await action(user.email.split("@")[0], appName);
-        } catch (error) {
-            alert(error.message);
-        } finally {
-            setActionExecuting(false);
+        if (user) {
+            try {
+                setActionExecuting(true);
+                await action(user.email.split("@")[0], appName);
+            } catch (error) {
+                alert(error.message);
+            } finally {
+                setActionExecuting(false);
+            }
+        } else {
+            setOpen(true);
         }
     };
 

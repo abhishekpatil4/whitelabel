@@ -9,8 +9,8 @@ import 'rsuite/Loader/styles/index.css'
 export default function AppRequestForm({ user, open, setOpen }) {
     const [submitting, setSubmitting] = useState(false)
     const [formData, setFormData] = useState({
-        name: user.displayName || '',
-        email: user.email || '',
+        name: user ? user.displayName : '',
+        email: user ? user.email : '',
         appName: '',
         websiteLink: ''
     })
@@ -19,8 +19,8 @@ export default function AppRequestForm({ user, open, setOpen }) {
         // Update form data if user prop changes
         setFormData(prevData => ({
             ...prevData,
-            name: user.displayName || '',
-            email: user.email || ''
+            name: user ? user.displayName : '',
+            email: user ? user.email : ''
         }))
     }, [user])
 
