@@ -14,6 +14,8 @@ const Demo = ({ user }) => {
             await signUpWithGoogle();
         } catch (error) {
             console.error("Error during sign up:", error);
+        }finally{
+            setOpen(false);
         }
     };
     return <div className="h-screen">

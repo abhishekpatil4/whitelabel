@@ -4,7 +4,7 @@ import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/re
 
 export default function LoginAlert({ open, setOpen, action }) {
     return (
-        <Dialog open={open} onClose={setOpen} className="relative z-10">
+        <Dialog open={open} onClose={setOpen} className="relative z-20">
             <DialogBackdrop
                 className="fixed inset-0 bg-gray-500 bg-opacity-75"
             />
