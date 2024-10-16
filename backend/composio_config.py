@@ -57,4 +57,4 @@ def createNewEntity(newUserId: str, redirectUrl: str, appName: str):
         }
         return response
     
-print(createNewEntity("TestUser", "https://www.google.com", "GITHUB"))
+# print(createNewEntity("TestUser", "https://www.google.com", "GITHUB"))

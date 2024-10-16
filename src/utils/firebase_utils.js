@@ -8,7 +8,7 @@ export const signUpWithGoogle = async (navigate) => {
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
         await addUserData(user.uid, user.email.split("@")[0], user.email);
-        navigate("/settings");
+        // navigate("/settings");
     } catch (error) {
         alert(error);
         console.error("Error during Google sign-up:", error);

@@ -2,18 +2,15 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./config/firebase";
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import { useState, useEffect } from "react";
 import Login from "./pages/Login";
-import Settings from "./pages/Settings";
+// import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import SkeletonLoader from "./components/SkeletonLoader";
 import { SnackbarProvider } from 'notistack'
-import CreatePost from "./pages/CreatePost";
-import RepostExistingTweet from "./pages/Repost";
-
+import Demo from "./pages/Demo";
 const ProtectedRoute = ({ user, children }) => {
   if (!user) {
     return <Navigate to="/login" replace />;
@@ -45,22 +42,17 @@ const App = () => {
         <ScrollToTop />
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/Settings" element={
+          {/* <Route path="/Settings" element={
             <ProtectedRoute user={user}>
               <Settings user={user} />
             </ProtectedRoute>
-          } />
-          <Route path="/createpost" element={
+          } /> */}
+          <Route path="/demo" element={
             <ProtectedRoute user={user}>
-              <CreatePost user={user} />
+              <Demo user={user} />
             </ProtectedRoute>
           } />
-          <Route path="/repost" element={
-            <ProtectedRoute user={user}>
-              <RepostExistingTweet user={user} />
-            </ProtectedRoute>
-          } />
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Demo user={user} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
