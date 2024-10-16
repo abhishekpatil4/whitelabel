@@ -8,7 +8,7 @@ import { useState } from "react";
 import { signUpWithGoogle } from "../utils/firebase_utils";
 
 const Demo = ({ user }) => {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const initiateLogin = async () => {
         try {
             await signUpWithGoogle();
