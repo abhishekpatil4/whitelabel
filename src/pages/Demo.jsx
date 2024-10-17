@@ -21,7 +21,7 @@ const Demo = ({ user }) => {
     };
     return <div className="h-screen">
         <LoginAlert open={open} setOpen={setOpen} action={initiateLogin} />
-        <div className="flex flex-row gap-8 items-center justify-center mt-32">
+        <div className="flex flex-row gap-8 items-center justify-center mt-32 p-8">
             <DemoApp setOpen={setOpen} user={user} appName="TWITTER" logo={twitterLogo} title="Create Simple Tweet App" description="Uses Twitter Tool to create a tweet from connected account" action={createNewTweet} />
             <DemoApp setOpen={setOpen} user={user} appName="GITHUB" logo={githubLogo} title="Star a repo on Github" description="Uses Github Tool to star a repo from connected account" action={createNewTweet} />
             <DemoApp setOpen={setOpen} user={user} appName="JIRA" logo={jiraLogo} title="Create An Issue" description="Uses Jira Tool to create an issue from connected account" action={createNewTweet} />
