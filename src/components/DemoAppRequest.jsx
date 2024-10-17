@@ -45,7 +45,7 @@ const DemoAppRequest = () => {
     return (
         <div>
             <button>
-                <div onClick={openPopup} className="flex flex-col gap-8 border-dashed border-2 border-gray-300 rounded-lg p-8 w-[22rem] h-[21rem] cursor-pointer hover:border-gray-400">
+                <div onClick={openPopup} className="flex flex-col gap-8 border-dashed border-2 border-gray-300 rounded-lg p-8 w-[21rem] h-[21rem] cursor-pointer hover:border-gray-400">
                     <p className="m-auto text-gray-500">Request a demo for your app</p>
                 </div>
             </button>
