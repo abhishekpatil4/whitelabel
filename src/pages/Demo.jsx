@@ -2,6 +2,7 @@ import DemoApp from "../components/DemoApp";
 import DemoAppRequest from "../components/DemoAppRequest";
 import twitterLogo from "../assets/appLogos/twitter-logo.jpg";
 import githubLogo from "../assets/appLogos/github-logo.jpg";
+import jiraLogo from "../assets/appLogos/jira-logo.jpg";
 import { createNewTweet } from "../utils/composio_utils";
 import LoginAlert from "../components/LoginAlert";
 import { useState } from "react";
@@ -14,7 +15,7 @@ const Demo = ({ user }) => {
             await signUpWithGoogle();
         } catch (error) {
             console.error("Error during sign up:", error);
-        }finally{
+        } finally {
             setOpen(false);
         }
     };
@@ -23,6 +24,7 @@ const Demo = ({ user }) => {
         <div className="flex flex-row gap-8 items-center justify-center mt-32">
             <DemoApp setOpen={setOpen} user={user} appName="TWITTER" logo={twitterLogo} title="Create Simple Tweet App" description="Uses Twitter Tool to create a tweet from connected account" action={createNewTweet} />
             <DemoApp setOpen={setOpen} user={user} appName="GITHUB" logo={githubLogo} title="Star a repo on Github" description="Uses Github Tool to star a repo from connected account" action={createNewTweet} />
+            <DemoApp setOpen={setOpen} user={user} appName="JIRA" logo={jiraLogo} title="Create An Issue" description="Uses Jira Tool to create an issue from connected account" action={createNewTweet} />
             <DemoAppRequest user={user} />
         </div>
     </div>
