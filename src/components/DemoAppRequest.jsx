@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const DemoAppRequest = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const popupRef = useRef(null);
 
     const openPopup = () => setIsOpen(true);
     const closePopup = () => setIsOpen(false);
@@ -24,6 +25,21 @@ const DemoAppRequest = () => {
         if (isOpen && window.Tally) {
             window.Tally.loadEmbeds();
         }
+
+        // Add click event listener to close popup when clicking outside
+        const handleOutsideClick = (event) => {
+            if (popupRef.current && !popupRef.current.contains(event.target)) {
+                closePopup();
+            }
+        };
+
+        if (isOpen) {
+            document.addEventListener('mousedown', handleOutsideClick);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
     }, [isOpen]);
 
     return (
@@ -36,14 +52,8 @@ const DemoAppRequest = () => {
 
             {isOpen && (
                 <div className="z-30 fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <div className="bg-white p-4 rounded-lg shadow-lg relative w-full max-w-2xl p-10">
-                        <button
-                            onClick={closePopup}
-                            className="absolute top-2 right-2 text-white bg-red-700 px-2 py-1 rounded-md"
-                        >
-                            Close
-                        </button>
-                        <p className="text-2xl font-bold text-center">Request A Demo For your App</p>
+                    <div ref={popupRef} className="bg-white p-4 rounded-lg shadow-lg relative w-full max-w-2xl p-10">
+                        <p className="text-2xl font-bold text-center mb-4">Request A Demo For your App</p>
                         <iframe
                             data-tally-src="https://tally.so/embed/wg7lQM?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
                             loading="lazy"
