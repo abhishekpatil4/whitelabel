@@ -13,8 +13,8 @@ logger = logging.getLogger(__name__)
 app = FastAPI()
 
 origins = [
-    "https://tweetify-three.vercel.app",
-    "http://localhost:5173",
+    "https://whitelabel.composio.dev",
+    "https://whitelabel-green.vercel.app",
     "http://localhost",
 ]
 
