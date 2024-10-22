@@ -25,6 +25,8 @@ const DemoApp = ({ logo, title, description, user, appName, action, setOpen, log
                 }
             }
             checkConnectionStatusHelper();
+        }else{
+            setIsConnected(false);
         }
     }, [user]);
 

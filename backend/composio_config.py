@@ -44,7 +44,9 @@ def createNewEntity(newUserId: str, redirectUrl: str, appName: str):
     except NoItemsFound as e:
         app_integration_ids = {
             "TWITTER": os.getenv('TWITTER_INTEGRATION_ID'),
-            "GITHUB": os.getenv('GITHUB_INTEGRATION_ID')
+            "GITHUB": os.getenv('GITHUB_INTEGRATION_ID'),
+            "JIRA": os.getenv('JIRA_INTEGRATION_ID'),
+            "CLICKUP": os.getenv('CLICKUP_INTEGRATION_ID')
         }
         integration = entity.client.integrations.get_by_id(app_integration_ids[app_enum])
         request = entity.initiate_connection(
@@ -56,5 +58,3 @@ def createNewEntity(newUserId: str, redirectUrl: str, appName: str):
             "url": request.redirectUrl
         }
         return response
-    
-# print(createNewEntity("TestUser", "https://www.google.com", "GITHUB"))
