@@ -5,7 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from firebase.init import auth
 from composio_config import createNewEntity, isEntityConnected
 import logging
-from actions.twitter_helper import create_new_tweet
+from actions.twitter import create_new_tweet
+from actions.github import star_github_repo
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -51,7 +52,7 @@ class TweetRequestData(BaseModel):
     post: str
     repost_data_list: list
 
-class CreateNewTweetData(BaseModel):
+class ExecuteActionData(BaseModel):
     entity_id: str
 
 class NewEntityData(BaseModel):
@@ -79,9 +80,15 @@ async def handle_request(user_data: UserData,
     return res
 
 @app.post("/createtweet")
-async def create_tweet(new_tweet_data: CreateNewTweetData, decoded_token: dict = Depends(verify_token)):
-    entity_id = new_tweet_data.entity_id
+async def create_tweet(execute_action_data: ExecuteActionData, decoded_token: dict = Depends(verify_token)):
+    entity_id = execute_action_data.entity_id
     res = create_new_tweet(entity_id)
+    return {"result": res}
+
+@app.post("/stargithubrepo")
+async def star_repo(execute_action_data: ExecuteActionData, decoded_token: dict = Depends(verify_token)):
+    entity_id = execute_action_data.entity_id
+    res = star_github_repo(entity_id)
     return {"result": res}
 
 @app.get("/")
