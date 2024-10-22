@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from firebase.init import auth
 from composio_config import createNewEntity, isEntityConnected
 import logging
-from twitter_helper import create_new_tweet
+from actions.twitter_helper import create_new_tweet
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -15,7 +15,7 @@ app = FastAPI()
 origins = [
     "https://whitelabel.composio.dev",
     "https://whitelabel-green.vercel.app",
-    "http://localhost",
+    "http://localhost:5173",
 ]
 
 app.add_middleware(
