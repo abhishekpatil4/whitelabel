@@ -7,6 +7,7 @@ from composio_config import createNewEntity, isEntityConnected
 import logging
 from actions.twitter import create_new_tweet
 from actions.github import star_github_repo
+from actions.clickup import create_clickup_space
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -55,6 +56,10 @@ class TweetRequestData(BaseModel):
 class ExecuteActionData(BaseModel):
     entity_id: str
 
+class CreateClickupSpaceData(BaseModel):
+    entity_id: str
+    workspace_id: str
+
 class NewEntityData(BaseModel):
     newUserId: str
     redirectUrl: str
@@ -89,6 +94,13 @@ async def create_tweet(execute_action_data: ExecuteActionData, decoded_token: di
 async def star_repo(execute_action_data: ExecuteActionData, decoded_token: dict = Depends(verify_token)):
     entity_id = execute_action_data.entity_id
     res = star_github_repo(entity_id)
+    return {"result": res}
+
+@app.post("/createclickupspace")
+async def create_space(create_clickup_space_data: CreateClickupSpaceData, decoded_token: dict = Depends(verify_token)):
+    entity_id = create_clickup_space_data.entity_id
+    workspace_id = create_clickup_space_data.workspace_id
+    res = create_clickup_space(entity_id, workspace_id)
     return {"result": res}
 
 @app.get("/")
