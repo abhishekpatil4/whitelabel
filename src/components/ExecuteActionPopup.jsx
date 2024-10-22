@@ -1,8 +1,6 @@
-'use client'
-
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, Description } from '@headlessui/react'
 
-export default function ExecuteActionPopup({ open, setOpen, action }) {
+export default function ExecuteActionPopup({ open, setOpen, action, actionDescription }) {
     return (
         <Dialog open={open} onClose={setOpen} className="relative z-20">
             <DialogBackdrop
@@ -20,7 +18,7 @@ export default function ExecuteActionPopup({ open, setOpen, action }) {
                                     Execute Action
                                 </DialogTitle>
                                 <Description className="my-6">
-                                    This action will create a tweet saying "Hey! I used @composiohq to create this tweet" from connected account.
+                                    {actionDescription}
                                 </Description>
                             </div>
                         </div>
