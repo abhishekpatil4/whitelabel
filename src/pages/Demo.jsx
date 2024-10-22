@@ -26,7 +26,7 @@ const Demo = ({ user }) => {
             <DemoApp actionDescription="This action will create a tweet saying 'Hey! I used @composiohq to create this tweet' from connected account." setOpen={setOpen} user={user} appName="TWITTER" logo={twitterLogo} title="Create Simple Tweet App" description="Uses Twitter Tool to create a tweet from connected account" action={createNewTweet} />
             <DemoApp actionDescription="This action will star the composioHQ/composio repository from connected account" setOpen={setOpen} user={user} appName="GITHUB" logo={githubLogo} title="Star a repo on Github" description="Uses Github Tool to star a repo from connected account" action={starGithubRepo} />
             <DemoApp actionDescription="This action will create a new space in Clickup from connected account" setOpen={setOpen} user={user} appName="CLICKUP" logo={clickupLogo} title="Create A New Space" description="Uses Clickup Tool to create a new space from connected account" action={createClickupSpace} logoRounded={true} inputRequired={true} inputValue="workspace id"/>
-            <DemoApp actionDescription="This action will create an issue in Jira from connected account." setOpen={setOpen} user={user} appName="JIRA" logo={jiraLogo} title="Create An Issue" description="Uses Jira Tool to create an issue from connected account" action={createNewTweet}/>
+            {/* <DemoApp actionDescription="This action will create an issue in Jira from connected account." setOpen={setOpen} user={user} appName="JIRA" logo={jiraLogo} title="Create An Issue" description="Uses Jira Tool to create an issue from connected account" action={createNewTweet}/> */}
             <DemoAppRequest user={user} />
         </div>
     </div>
