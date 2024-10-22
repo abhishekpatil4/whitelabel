@@ -59,12 +59,6 @@ class NewEntityData(BaseModel):
     redirectUrl: str
     appName: str
     
-class RequestDemoData(BaseModel):
-    name: str
-    email: str
-    appName: str
-    websiteLink: str
-    
 @app.post("/newentity")
 async def handle_request(user_data: NewEntityData,
                          decoded_token: dict = Depends(verify_token)):
@@ -89,17 +83,6 @@ async def create_tweet(new_tweet_data: CreateNewTweetData, decoded_token: dict =
     entity_id = new_tweet_data.entity_id
     res = create_new_tweet(entity_id)
     return {"result": res}
-
-@app.post("/requestdemo")
-async def request_demo(user_data: RequestDemoData):
-    name = user_data.name
-    email = user_data.email
-    appName = user_data.appName
-    websiteLink = user_data.websiteLink
-    print("\n\nUser data from request demo :: ", user_data)
-    # logic to send the email to the composio team
-    # res = request_demo(name, email, appName, websiteLink)
-    return {"result": "Ok"}
 
 @app.get("/")
 async def handle_request():
