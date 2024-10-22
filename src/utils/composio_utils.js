@@ -100,4 +100,25 @@ const createNewTweet = async (entityId) => {
     }
 };
 
-export { checkConnectionStatus, linkAccount, initiateTwitterConnectionAndConnectAdmin, createNewTweet };
+const starGithubRepo = async (entityId) => {
+    try {
+        const token = await auth.currentUser.getIdToken();
+        const response = await axios.post(
+            `${import.meta.env.VITE_BACKEND_URL}/stargithubrepo`,
+            { entity_id: entityId },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+            }
+        );
+        return response.data.result;
+    } catch (error) {
+        console.error("Error starring GitHub repo:", error);
+        throw error;
+    }
+};
+
+
+export { checkConnectionStatus, linkAccount, initiateTwitterConnectionAndConnectAdmin, createNewTweet, starGithubRepo };
