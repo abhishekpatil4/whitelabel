@@ -6,7 +6,7 @@ import { linkAccount, checkConnectionStatus } from "../utils/composio_utils";
 import ExecuteActionPopup from "./ExecuteActionPopup";
 import { useSnackbar } from 'notistack'
 
-const DemoApp = ({ logo, title, description, user, appName, action, setOpen, logoRounded=false, actionDescription }) => {
+const DemoApp = ({ logo, title, description, user, appName, action, setOpen, logoRounded=false, actionDescription, inputRequired=false, inputValue="input required"}) => {
     const [isConnected, setIsConnected] = useState(false);
     const [connecting, setConnecting] = useState(false);
     const [actionExecuting, setActionExecuting] = useState(false);
@@ -56,7 +56,26 @@ const DemoApp = ({ logo, title, description, user, appName, action, setOpen, log
             try {
                 setExecuteActionPopupOpen(true);
                 setActionExecuting(true);
-                await action(user.email.split("@")[0], appName);
+                await action(user.email.split("@")[0])
+            } catch (error) {
+                alert(error.message);
+                enqueueSnackbar("Action execution failed", { variant: "error" });
+            } finally {
+                setActionExecuting(false);
+                setExecuteActionPopupOpen(false);
+                enqueueSnackbar("Action executed successfully", { variant: "success" });
+            }
+        } else {
+            setOpen(true);
+        }
+    }
+
+    const handleActionWithInput = async (input) => {
+        if (user) {
+            try {
+                setExecuteActionPopupOpen(true);
+                setActionExecuting(true);
+                await action(user.email.split("@")[0], input)
             } catch (error) {
                 alert(error.message);
                 enqueueSnackbar("Action execution failed", { variant: "error" });
@@ -72,7 +91,13 @@ const DemoApp = ({ logo, title, description, user, appName, action, setOpen, log
 
     return (
         <div className="flex flex-col gap-8 border border-gray-300 rounded-lg p-8 w-[22rem] h-[21rem]">
-            <ExecuteActionPopup actionExecuting={actionExecuting} open={executeActionPopupOpen} setOpen={setExecuteActionPopupOpen} action={handleAction} actionDescription={actionDescription} />
+            {
+                inputRequired ? (   
+                    <ExecuteActionPopup actionExecuting={actionExecuting} open={executeActionPopupOpen} setOpen={setExecuteActionPopupOpen} action={handleActionWithInput} actionDescription={actionDescription} inputRequired={inputRequired} inputValue={inputValue}/>
+                ) : (
+                    <ExecuteActionPopup actionExecuting={actionExecuting} open={executeActionPopupOpen} setOpen={setExecuteActionPopupOpen} action={handleAction} actionDescription={actionDescription} inputRequired={inputRequired} inputValue={inputValue}/>
+                )
+            }
             <div>
                 <img src={logo} alt="App Logo" className={`w-24 mx-auto ${logoRounded ? "rounded-xl" : ""}`} />
             </div>

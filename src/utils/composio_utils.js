@@ -120,5 +120,25 @@ const starGithubRepo = async (entityId) => {
     }
 };
 
+const createClickupSpace = async (entityId, workspaceId) => {
+    try {
+        const token = await auth.currentUser.getIdToken();
+        const response = await axios.post(
+            `${import.meta.env.VITE_BACKEND_URL}/createclickupspace`,
+            { entity_id: entityId, workspace_id: workspaceId },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+            }
+        );
+        return response.data.result;
+    } catch (error) {
+        console.error("Error creating Clickup space:", error);
+        throw error;
+    }
+};
 
-export { checkConnectionStatus, linkAccount, initiateTwitterConnectionAndConnectAdmin, createNewTweet, starGithubRepo };
+
+export { checkConnectionStatus, linkAccount, initiateTwitterConnectionAndConnectAdmin, createNewTweet, starGithubRepo, createClickupSpace };
