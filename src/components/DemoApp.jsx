@@ -4,7 +4,7 @@ import 'rsuite/Loader/styles/index.css';
 import { Loader } from 'rsuite';
 import { linkAccount, checkConnectionStatus } from "../utils/composio_utils";
 
-const DemoApp = ({ logo, title, description, user, appName, action, setOpen }) => {
+const DemoApp = ({ logo, title, description, user, appName, action, setOpen, logoRounded=false }) => {
     const [isConnected, setIsConnected] = useState(false);
     const [connecting, setConnecting] = useState(false);
     const [actionExecuting, setActionExecuting] = useState(false);
@@ -62,7 +62,7 @@ const DemoApp = ({ logo, title, description, user, appName, action, setOpen }) =
     return (
         <div className="flex flex-col gap-8 border border-gray-300 rounded-lg p-8 w-[22rem] h-[21rem]">
             <div>
-                <img src={logo} alt="App Logo" className="w-24 mx-auto" />
+                <img src={logo} alt="App Logo" className={`w-24 mx-auto ${logoRounded ? "rounded-xl" : ""}`} />
             </div>
             <div className="text-center">
                 <p className="text-xl font-bold">{title}</p>
