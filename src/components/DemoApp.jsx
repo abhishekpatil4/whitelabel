@@ -4,12 +4,15 @@ import 'rsuite/Loader/styles/index.css';
 import { Loader } from 'rsuite';
 import { linkAccount, checkConnectionStatus } from "../utils/composio_utils";
 import ExecuteActionPopup from "./ExecuteActionPopup";
+import { useSnackbar } from 'notistack'
 
 const DemoApp = ({ logo, title, description, user, appName, action, setOpen, logoRounded=false, actionDescription }) => {
     const [isConnected, setIsConnected] = useState(false);
     const [connecting, setConnecting] = useState(false);
     const [actionExecuting, setActionExecuting] = useState(false);
     const [executeActionPopupOpen, setExecuteActionPopupOpen] = useState(false);
+    const { enqueueSnackbar } = useSnackbar()
+
 
     useEffect(() => {
         if (user) {
@@ -56,8 +59,11 @@ const DemoApp = ({ logo, title, description, user, appName, action, setOpen, log
                 await action(user.email.split("@")[0], appName);
             } catch (error) {
                 alert(error.message);
+                enqueueSnackbar("Action execution failed", { variant: "error" });
             } finally {
                 setActionExecuting(false);
+                setExecuteActionPopupOpen(false);
+                enqueueSnackbar("Action executed successfully", { variant: "success" });
             }
         } else {
             setOpen(true);
