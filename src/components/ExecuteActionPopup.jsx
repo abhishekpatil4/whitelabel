@@ -1,6 +1,8 @@
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle, Description } from '@headlessui/react'
+import 'rsuite/Loader/styles/index.css';
+import { Loader } from 'rsuite';
 
-export default function ExecuteActionPopup({ open, setOpen, action, actionDescription }) {
+export default function ExecuteActionPopup({ open, setOpen, action, actionDescription, actionExecuting }) {
     return (
         <Dialog open={open} onClose={setOpen} className="relative z-20">
             <DialogBackdrop
@@ -26,16 +28,21 @@ export default function ExecuteActionPopup({ open, setOpen, action, actionDescri
                             <button
                                 type="button"
                                 onClick={() => setOpen(false)}
-                                className="inline-flex justify-center rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+                                disabled={actionExecuting}
+                                className={`inline-flex justify-center rounded-md px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+                                    actionExecuting
+                                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                        : 'bg-gray-300 text-gray-700 hover:bg-gray-200 focus-visible:outline-gray-600'
+                                }`}
                             >
                                 Cancel
                             </button>
                             <button
                                 type="button"
                                 onClick={action}
-                                className="bg-purple-700 hover:bg-purple-800 inline-flex justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
+                                className="w-20 bg-purple-700 hover:bg-purple-800 inline-flex justify-center rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
                             >
-                                Proceed
+                                {actionExecuting ? <Loader speed="slow" size="sm" /> : "Proceed"}
                             </button>
                         </div>
                     </DialogPanel>

@@ -52,6 +52,7 @@ const DemoApp = ({ logo, title, description, user, appName, action, setOpen, log
         if (user) {
             try {
                 setExecuteActionPopupOpen(true);
+                setActionExecuting(true);
                 await action(user.email.split("@")[0], appName);
             } catch (error) {
                 alert(error.message);
@@ -65,7 +66,7 @@ const DemoApp = ({ logo, title, description, user, appName, action, setOpen, log
 
     return (
         <div className="flex flex-col gap-8 border border-gray-300 rounded-lg p-8 w-[22rem] h-[21rem]">
-            <ExecuteActionPopup open={executeActionPopupOpen} setOpen={setExecuteActionPopupOpen} action={handleAction} actionDescription={actionDescription} />
+            <ExecuteActionPopup actionExecuting={actionExecuting} open={executeActionPopupOpen} setOpen={setExecuteActionPopupOpen} action={handleAction} actionDescription={actionDescription} />
             <div>
                 <img src={logo} alt="App Logo" className={`w-24 mx-auto ${logoRounded ? "rounded-xl" : ""}`} />
             </div>
