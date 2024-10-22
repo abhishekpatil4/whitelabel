@@ -3,11 +3,13 @@ import { useState, useEffect } from "react";
 import 'rsuite/Loader/styles/index.css';
 import { Loader } from 'rsuite';
 import { linkAccount, checkConnectionStatus } from "../utils/composio_utils";
+import ExecuteActionPopup from "./ExecuteActionPopup";
 
 const DemoApp = ({ logo, title, description, user, appName, action, setOpen, logoRounded=false }) => {
     const [isConnected, setIsConnected] = useState(false);
     const [connecting, setConnecting] = useState(false);
     const [actionExecuting, setActionExecuting] = useState(false);
+    const [executeActionPopupOpen, setExecuteActionPopupOpen] = useState(false);
 
     useEffect(() => {
         if (user) {
@@ -49,7 +51,7 @@ const DemoApp = ({ logo, title, description, user, appName, action, setOpen, log
     const handleAction = async () => {
         if (user) {
             try {
-                setActionExecuting(true);
+                setExecuteActionPopupOpen(true);
                 await action(user.email.split("@")[0], appName);
             } catch (error) {
                 alert(error.message);
@@ -59,10 +61,11 @@ const DemoApp = ({ logo, title, description, user, appName, action, setOpen, log
         } else {
             setOpen(true);
         }
-    };
+    }
 
     return (
         <div className="flex flex-col gap-8 border border-gray-300 rounded-lg p-8 w-[22rem] h-[21rem]">
+            <ExecuteActionPopup open={executeActionPopupOpen} setOpen={setExecuteActionPopupOpen} action={handleAction} />
             <div>
                 <img src={logo} alt="App Logo" className={`w-24 mx-auto ${logoRounded ? "rounded-xl" : ""}`} />
             </div>
@@ -85,7 +88,7 @@ const DemoApp = ({ logo, title, description, user, appName, action, setOpen, log
                         id="generate-retweet-quotes-for-existing-tweet-button"
                         type="button"
                         className="focus:outline-none text-white w-full bg-green-600 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 h-[2.5rem]"
-                        onClick={handleAction}
+                        onClick={() => setExecuteActionPopupOpen(true)}
                     >
                         {actionExecuting ? <Loader speed="slow" size="sm" /> : "Perform Action"}
                     </button>
