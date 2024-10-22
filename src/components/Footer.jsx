@@ -11,13 +11,13 @@ const Footer = () => {
                         <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
                         <ul className="text-gray-500 dark:text-gray-400 font-medium">
                             <li className="mb-3">
-                                <a href="https://github.com/abhishekpatil4/tweetify" className="hover:underline">Source Code</a>
+                                <a href="https://github.com/abhishekpatil4/whitelabel" className="hover:underline">Source Code</a>
                             </li>
                             <li className="mb-3">
-                                <a href="https://replit.com/@abishkpatil/tweetify?v=1" className="hover:underline">Replit</a>
+                                <a href="https://replit.com/@abishkpatil/whitelabel" className="hover:underline">Replit</a>
                             </li>
                             <li className="mb-3">
-                                <a href="https://youtu.be/ooMl1Wew1tk" className="hover:underline">How do build this?</a>
+                                <a href="https://youtu.be/ooMl1Wew1tk" className="hover:underline">Build something like this</a>
                             </li>
                         </ul>
                     </div>
